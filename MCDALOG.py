@@ -21,7 +21,7 @@ if choice == "Réglementation et Spécificités":
     st.header("Logigramme 1: Réglementation et Spécificités selon le matériau")
 
     # Define packaging materials
-    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium", 
+    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium",
                  "Papier/Carton", "Bois", "Métal", "Verre", "Céramique", "Pellicule de cellulose régénérée", "Autres"]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
@@ -89,7 +89,6 @@ if choice == "Réglementation et Spécificités":
         mime="text/plain"
     )
 
-
 elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
@@ -106,12 +105,13 @@ elif choice == "Tests et Exigences":
     st.subheader("Questions pour identifier les tests et exigences:")
 
     # Logigramme 2 (Décret 2008-1469)
+    st.subheader("Logigramme 2: Décret 2008-1469")
     questions_logigramme2 = [
         "Le matériau est-il en contact direct avec l'aliment ?",
         "Le matériau est-il soumis à un traitement thermique ?",
         "Quelle est la température maximale du traitement thermique ?",  # Ask only if thermal treatment is yes
         "Quelle est la durée maximale du traitement thermique ?", # Ask only if thermal treatment is yes
-        "Quelle est la durée de conservation du produit (DLC ou DLUO) ?" 
+        "Quelle est la durée de conservation du produit (DLC ou DLUO) ?"
     ]
     answers_logigramme2 = []
     for question in questions_logigramme2:
@@ -119,6 +119,7 @@ elif choice == "Tests et Exigences":
         answers_logigramme2.append(answer)
 
     # Logigramme 3 (Mesures spécifiques)
+    st.subheader("Logigramme 3: Mesures spécifiques")
     questions_logigramme3 = [
         "Y a-t-il une barrière fonctionnelle ?",
         "Le matériau est-il composé de plusieurs couches ?",
@@ -131,6 +132,7 @@ elif choice == "Tests et Exigences":
         answers_logigramme3.append(answer)
 
     # Logigramme 4 (Mesures spécifiques françaises)
+    st.subheader("Logigramme 4: Mesures spécifiques françaises")
     questions_logigramme4 = []
     answers_logigramme4 = []
     if material == "Aluminium":
@@ -165,6 +167,7 @@ elif choice == "Tests et Exigences":
             answers_logigramme4.append(answer)
 
     # Logigramme 5 (Recommandations françaises)
+    st.subheader("Logigramme 5: Recommandations françaises")
     questions_logigramme5 = []
     answers_logigramme5 = []
     if material == "Aluminium":
