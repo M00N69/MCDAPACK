@@ -89,11 +89,12 @@ if choice == "Réglementation et Spécificités":
         mime="text/plain"
     )
 
+
 elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
     # Define packaging materials
-    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium", 
+    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium",
                  "Papier/Carton", "Bois", "Métal", "Verre", "Céramique", "Pellicule de cellulose régénérée", "Autres"]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
