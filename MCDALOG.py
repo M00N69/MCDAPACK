@@ -44,6 +44,7 @@ def logigramme_1():
         st.write("**Arrêté du 15 novembre 1945:** Règles spécifiques pour le bois.")
     if material == "Céramique":
         st.write("**Directive 2005/31/CE:** Règles spécifiques pour les céramiques.")
+        st.write("**Directive 84/500/CEE:** Règles spécifiques pour les céramiques (ancienne directive).")
     if material == "Pellicule de cellulose régénérée":
         st.write("**Directive 2007/42/CE:** Règles spécifiques pour la pellicule de cellulose régénérée.")
 
@@ -205,9 +206,24 @@ def logigramme_3(material):
         st.write("Limite de migration globale: 10 mg/dm²")
         st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
         st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
+    elif material == "Polypropylène":
+        st.write("Liste positive: [Liste des substances autorisées pour le Polypropylène]")
+        st.write("Limite de migration globale: 10 mg/dm²")
+        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
+        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
+    elif material == "Polyéthylène":
+        st.write("Liste positive: [Liste des substances autorisées pour le Polyéthylène]")
+        st.write("Limite de migration globale: 10 mg/dm²")
+        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
+        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
+    elif material == "Polyéthylène Téréphtalate (PET)":
+        st.write("Liste positive: [Liste des substances autorisées pour le PET]")
+        st.write("Limite de migration globale: 10 mg/dm²")
+        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
+        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
     # Add logic for other materials as needed
     else:
-        st.write("Veuillez consulter le guide ACTIA pour les détails.")
+        st.write("Veuillez consulter le guide ACTIA for more details.")
 
 # --- Logigramme 4: Mesures spécifiques françaises ---
 def logigramme_4(material):
