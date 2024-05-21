@@ -63,7 +63,16 @@ def logigramme_1():
     elif material == "Papier/Carton":
         st.write("- Vérifier l'origine des fibres recyclées.")
         st.write("- Vérifier le respect des critères de pureté chimique du matériau recommandés par la DGCCRF.")
-    # ... (Add logic for other materials as needed)
+    elif material == "Métal":
+        st.write("- Vérifier la conformité aux restrictions d'emploi pour les métaux (ex: cuivre, zinc galvanisé).")
+    elif material == "Verre":
+        st.write("- Teneur en oxyde de plomb < 24%.")
+    elif material == "Bois":
+        st.write("- Vérifier la conformité aux essences de bois autorisées.")
+    elif material == "Céramique":
+        st.write("- Limites de migration spécifique pour le plomb et le cadmium.")
+    elif material == "Pellicule de cellulose régénérée":
+        st.write("- Limites de migration spécifique pour les monomères et les additifs.")
 
     st.subheader("Résumé:")
     st.write("L'emballage en {} est soumis aux règlements suivants:".format(material))
@@ -216,7 +225,7 @@ def logigramme_4(material):
         st.write("Teneur en pentachlorophénol: [Limite de teneur]")
     # Add logic for other materials as needed
     else:
-        st.write("Veuillez consulter le guide ACTIA pour les détails.")
+        st.write("Veuillez consulter le guide ACTIA for more details.")
 
 # --- Logigramme 5: Recommandations françaises ---
 def logigramme_5(material):
@@ -260,7 +269,7 @@ def logigramme_5(material):
         st.write("Limites de migration spécifique: [Valeurs]")
     # Add logic for other materials as needed
     else:
-        st.write("Veuillez consulter le guide ACTIA pour les détails.")
+        st.write("Veuillez consulter le guide ACTIA for more details.")
 
 # --- Main Execution ---
 if choice == "Réglementation et Spécificités":
