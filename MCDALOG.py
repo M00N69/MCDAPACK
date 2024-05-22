@@ -298,16 +298,17 @@ elif choice == "Tests et Exigences":
             if answers[1] == "Oui":  # Traitement thermique
                 tests.extend(["Migration globale", "Migration spécifique"])
                 requirements.extend(["Limite de migration globale (10 mg/dm²)", "Limite de migration spécifique pour les substances concernées"])
+                # --- Error Handling for Temperature Input ---
                 if answers[2] and answers[2].isdigit():  # Check if input is not empty and is a number
                     if int(answers[2]) > 100:  # Température maximale du traitement thermique
                         tests.append("Migration spécifique pour les substances sensibles à la chaleur")
-                    else:
+                else:
                     st.warning("Veuillez entrer une valeur numérique pour la température maximale du traitement thermique.")
-                    tests.append("Migration spécifique pour les substances sensibles à la chaleur")
             else:
                 tests.append("Migration spécifique pour les substances concernées")
-            if int(answers[4]) > 0:  # Durée de conservation (DLC ou DLUO)
-                tests.append("Tests organoleptiques")
+            if answers[4].isdigit():
+                if int(answers[4]) > 0:  # Durée de conservation (DLC ou DLUO)
+                    tests.append("Tests organoleptiques")
         if material == "Bois":
             if answers[5] == "Oui":  # Traitement du bois
                 requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
