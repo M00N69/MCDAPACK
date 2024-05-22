@@ -104,7 +104,6 @@ if choice == "Réglementation et Spécificités":
         st.write("### Réglementations:")
         st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
         st.write("- Décret n° 76-492: Objets en étain")
-        st.write("- Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
         st.write("### Spécifications:")
         st.write("- Teneur en étain ≥ 97 %")
         st.write("- Teneur en antimoine et cuivre")
@@ -155,9 +154,8 @@ if choice == "Réglementation et Spécificités":
     elif material == "Papiers":
         st.write("## Papiers")
         st.write("### Réglementations:")
-        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("- Arrêté du 28 juin 1912: Interdiction du contact direct de papier peint et de papier imprimé (sauf certains légumes)")
         st.write("### Spécifications:")
-        st.write("  - Interdiction du contact direct de papier peint et de papier imprimé (sauf certains légumes)")
     elif material == "Pellicules de cellulose régénérée":
         st.write("## Pellicules de cellulose régénérée")
         st.write("### Réglementations:")
@@ -309,7 +307,7 @@ elif choice == "Tests et Exigences":
         if material == "Bois":
             if answers[5] == "Oui":  # Traitement du bois
                 requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
-        if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
+        if material in ["Métaux et alliages de métaux", "Objets en étain"]:
             if answers[5] == "Oui":  # Traitement du métal
                 requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
         if material == "Verre, cristal, vitrocéramique":
