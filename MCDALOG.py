@@ -299,10 +299,10 @@ elif choice == "Tests et Exigences":
                 tests.extend(["Migration globale", "Migration spécifique"])
                 requirements.extend(["Limite de migration globale (10 mg/dm²)", "Limite de migration spécifique pour les substances concernées"])
                 if answers[2] and answers[2].isdigit():  # Check if input is not empty and is a number
-    if int(answers[2]) > 100:  # Température maximale du traitement thermique
-        tests.append("Migration spécifique pour les substances sensibles à la chaleur")
-else:
-    st.warning("Veuillez entrer une valeur numérique pour la température maximale du traitement thermique.")
+                    if int(answers[2]) > 100:  # Température maximale du traitement thermique
+                        tests.append("Migration spécifique pour les substances sensibles à la chaleur")
+                    else:
+                    st.warning("Veuillez entrer une valeur numérique pour la température maximale du traitement thermique.")
                     tests.append("Migration spécifique pour les substances sensibles à la chaleur")
             else:
                 tests.append("Migration spécifique pour les substances concernées")
