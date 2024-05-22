@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-import base64
 
 st.set_page_config(layout="wide", page_title="Food Packaging Safety Assistant", initial_sidebar_state="expanded")
 
@@ -17,69 +15,180 @@ with st.expander("Contexte de l'Emballage", expanded=True):
 st.sidebar.title("Navigation")
 choice = st.sidebar.radio("Choisir un logigramme:", ("Réglementation et Spécificités", "Tests et Exigences"))
 
-# --- Logigramme 1: Réglementation et Spécificités ---
-def logigramme_1():
+if choice == "Réglementation et Spécificités":
     st.header("Logigramme 1: Réglementation et Spécificités selon le matériau")
 
-    # Define packaging materials
-    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium", 
-                 "Papier/Carton", "Bois", "Métal", "Verre", "Céramique", "Pellicule de cellulose régénérée", "Autres"]
+    # Material Selection
+    materials = [
+        "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
+        "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine",
+        "Matières plastiques", "Métaux blanchis", "Métaux et alliages de métaux", 
+        "Objets en étain", "Papiers", "Pellicules de cellulose régénérée",
+        "Produits de nettoyage des MCDA", "Silicones", "Verre", "Zinc", "Autres"
+    ]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
-    st.subheader("Règlements applicables:")
+    # Display Regulations and Specifications
+    st.subheader("Réglementations et Spécifications:")
 
-    # EU Regulations
-    st.write("**Règlement (CE) No 1935/2004:** Règles générales pour les matériaux au contact des aliments.")
-    if material in ["Polystyrène", "Polypropylène", "Polyéthylène", "PET"]:
-        st.write("**Règlement (EU) No 10/2011:**  Mesures spécifiques pour les plastiques.")
-    if material == "Aluminium":
-        st.write("**Arrêté du 27 août 1987:** Règles spécifiques pour l'aluminium.")
-    if material == "Papier/Carton":
-        st.write("**Arrêté du 28 juin 1912:** Règles spécifiques pour le papier/carton.")
-    if material == "Métal":
-        st.write("**Décret No. 76-492:** Règles spécifiques pour les objets en étain.")
-    if material == "Verre":
-        st.write("**Arrêté du 15 novembre 1945:** Règles spécifiques pour le verre.")
-    if material == "Bois":
-        st.write("**Arrêté du 15 novembre 1945:** Règles spécifiques pour le bois.")
-    if material == "Céramique":
-        st.write("**Directive 2005/31/CE:** Règles spécifiques pour les céramiques.")
-        st.write("**Directive 84/500/CEE:** Règles spécifiques pour les céramiques (ancienne directive).")
-    if material == "Pellicule de cellulose régénérée":
-        st.write("**Directive 2007/42/CE:** Règles spécifiques pour la pellicule de cellulose régénérée.")
-
-    # French Regulations 
-    st.write("**Décret No. 2007-766:** Application du code de la consommation.")
-    st.write("**Décret No. 2008-1469:**  Modifie le Décret 2007-766.")
-
-    st.subheader("Spécifications spécifiques:")
-
-    # Example - adapt based on the ACTIA guide
-    if material == "Polystyrène":
-        st.write("- Limite de migration globale: 10 mg/dm²")
-        st.write("- Limites de migration spécifique pour certains additifs (voir liste EU).")
+    if material == "Aciers":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en plomb, cadmium, arsenic, cobalt")
+        st.write("  - LLS des éléments ajoutés")
+    elif material == "Aciers inoxydables":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("  - Arrêté du 13 janvier 1976: Aciers inoxydables")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en chrome ≥ 13%")
+        st.write("  - Teneurs limites en éléments ajoutés")
     elif material == "Aluminium":
-        st.write("- Teneur en aluminium > 99%")
-        st.write("- Teneur en impuretés < 1%")
-    elif material == "Papier/Carton":
-        st.write("- Vérifier l'origine des fibres recyclées.")
-        st.write("- Vérifier le respect des critères de pureté chimique du matériau recommandés par la DGCCRF.")
-    elif material == "Métal":
-        st.write("- Vérifier la conformité aux restrictions d'emploi pour les métaux (ex: cuivre, zinc galvanisé).")
-    elif material == "Verre":
-        st.write("- Teneur en oxyde de plomb < 24%.")
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("  - Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en aluminium (>99%)")
+        st.write("  - Teneur en impuretés (≤ 1 %)")
+    elif material == "Alliages d'aluminium":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en aluminium")
+        st.write("  - Teneurs limites en éléments ajoutés ou impuretés")
     elif material == "Bois":
-        st.write("- Vérifier la conformité aux essences de bois autorisées.")
-    elif material == "Céramique":
-        st.write("- Limites de migration spécifique pour le plomb et le cadmium.")
-    elif material == "Pellicule de cellulose régénérée":
-        st.write("- Limites de migration spécifique pour les monomères et les additifs.")
-
-    st.subheader("Résumé:")
-    st.write("L'emballage en {} est soumis aux règlements suivants:".format(material))
-    st.write("EU: [Liste des règlements EU]")
-    st.write("France: [Liste des règlements français]")
-    st.write("Spécifications: [Liste des spécifications]")
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: Bois")
+        st.write("**Spécifications:**")
+        st.write("  - Liste des essences de bois autorisées au contact des aliments")
+        st.write("  - Teneur en pentachlorophénol")
+    elif material == "Caoutchoucs":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 9 novembre 1994: Caoutchoucs")
+        st.write("  - Arrêté du 9 août 2005: Caoutchoucs")
+        st.write("  - Arrêté du 19 décembre 2006: Caoutchoucs")
+        st.write("**Spécifications:**")
+        st.write("  - Listes positives (monomères et additifs)")
+        st.write("  - Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("  - Formaldehyde (LMS = 3 mg/kg)")
+        st.write("  - Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("  - N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("  - Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("  - Monomères avec LMS")
+        st.write("  - Additifs avec LMS")
+        st.write("  - Peroxydes")
+    elif material == "Céramiques":
+        st.write("**Réglementations:**")
+        st.write("  - Directive n° 84/500/CEE: Céramiques")
+        st.write("  - Directive n° 2005/31/CE: Céramiques")
+        st.write("  - Arrêté du 7 novembre 1985: Céramiques")
+        st.write("  - Arrêté du 23 mai 2006: Céramiques")
+        st.write("**Spécifications:**")
+        st.write("  - Limite de migration spécifique du plomb")
+        st.write("  - Limite de migration spécifique du cadmium")
+        st.write("  - Déclaration écrite de conformité")
+    elif material == "Étain":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("  - Décret n° 76-492: Objets en étain")
+        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en étain ≥ 97 %")
+        st.write("  - Teneur en antimoine et cuivre")
+        st.write("  - Teneur en plomb, cadmium, arsenic")
+        st.write("  - LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre")
+    elif material == "Fontes":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en plomb, cadmium, arsenic")
+        st.write("  - LLS des éléments ajoutés")
+    elif material == "Grès - Porcelaine":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: Grès-porcelaine")
+        st.write("**Spécifications:**")
+        st.write("  - Interdiction des décors avec couleurs à base de métaux toxiques")
+    elif material == "Matières plastiques":
+        st.write("**Réglementations:**")
+        st.write("  - Règlement (CE) N° 10 / 2011: Matières plastiques")
+        st.write("**Spécifications:**")
+        st.write("  - Liste de l'UE")
+        st.write("  - Limite de migration globale (10 mg/dm³)")
+        st.write("  - Limite de migration spécifique (en mg/kg d'aliment)")
+        st.write("  - Déclaration écrite de conformité")
+    elif material == "Métaux blanchis":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en plomb, cadmium, arsenic")
+        st.write("  - LLS des éléments ajoutés, en particulier : plomb, cadmium")
+    elif material == "Métaux et alliages de métaux":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: Métaux et alliages")
+        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("**Spécifications:**")
+        st.write("  - Liste des métaux autorisés au contact des aliments")
+    elif material == "Objets en étain":
+        st.write("**Réglementations:**")
+        st.write("  - Décret N° 76-492: Objets en étain")
+        st.write("**Spécifications:**")
+        st.write("  - Restrictions d'emploi concernant la quantité de plomb & d'arsenic éventuellement présents dans l'étain")
+    elif material == "Papiers":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("**Spécifications:**")
+        st.write("  - Interdiction du contact direct de papier peint et de papier imprimé (sauf certains légumes)")
+    elif material == "Pellicules de cellulose régénérée":
+        st.write("**Réglementations:**")
+        st.write("  - Directive N° 2007 / 42 / CE: Pellicule de cellulose régénérée")
+        st.write("  - Arrêté du 4 novembre 1993: Pellicules de cellulose régénérée")
+        st.write("  - Arrêté du 2 octobre 2004: Pellicules de cellulose régénérée")
+        st.write("**Spécifications:**")
+        st.write("  - Listes positives (monomères et additifs)")
+        st.write("  - Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("  - Formaldehyde (LMS = 3 mg/kg)")
+        st.write("  - Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("  - N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("  - Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("  - Monomères avec LMS")
+        st.write("  - Additifs avec LMS")
+        st.write("  - Peroxydes")
+    elif material == "Produits de nettoyage des MCDA":
+        st.write("**Réglementations:**")
+        st.write("  - Décret n° 73/138: Produits de nettoyage des matériaux")
+        st.write("  - Décret n° 1469/2008: Sanctions et mesures spécifiques françaises")
+        st.write("  - Arrêté du 8 septembre 1999: Produits de nettoyage des matériaux")
+        st.write("**Spécifications:**")
+        st.write("  - Dossier de demande d'autorisation de substance")
+        st.write("  - Restriction d'emploi concernant les produits de rinçage")
+        st.write("  - Liste positive")
+    elif material == "Silicones":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 25 novembre 1992: Silicones")
+        st.write("**Spécifications:**")
+        st.write("  - Liste positive")
+        st.write("  - Matières organiques volatiles libres (≤ 0,5%)")
+        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("  - Organo-étains (LMS = 0,1 mg/kg)")
+        st.write("  - Peroxyde")
+    elif material == "Verre":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: Verre")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur en oxyde de plomb < 24%")
+    elif material == "Zinc":
+        st.write("**Réglementations:**")
+        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("**Spécifications:**")
+        st.write("  - Teneur zinc ≥ 99,85 %")
+        st.write("  - Teneur en plomb, cadmium, arsenic")
+        st.write("  - LLS des éléments ajoutés, en particulier: zinc, plomb, cadmium, arsenic")
+    else:
+        st.write("Veuillez consulter le guide ACTIA pour plus d'informations sur ce matériau.")
 
     # Export Results
     st.download_button(
@@ -89,100 +198,202 @@ def logigramme_1():
         mime="text/plain"
     )
 
-# --- Logigramme 2: Tests et Exigences ---
-def logigramme_2():
+elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
-    # Define packaging materials
-    materials = ["Polystyrène", "Polypropylène", "Polyéthylène", "Polyéthylène Téréphtalate (PET)", "Aluminium", 
-                 "Papier/Carton", "Bois", "Métal", "Verre", "Céramique", "Pellicule de cellulose régénérée", "Autres"]
+    # Material Selection
+    materials = [
+        "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
+        "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine",
+        "Matières plastiques", "Métaux blanchis", "Métaux et alliages de métaux", 
+        "Objets en étain", "Papiers", "Pellicules de cellulose régénérée",
+        "Produits de nettoyage des MCDA", "Silicones", "Verre", "Zinc", "Autres"
+    ]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
-    # Define the food types
+    # Food Type Selection
     food_types = ["Aqueux pH > 4.5", "Acide", "Gras", "Sec", "Autres"]
     food_type = st.selectbox("Sélectionner le type d'aliment:", food_types)
 
+    # Questions
     st.subheader("Questions pour identifier les tests et exigences:")
 
-    # Define questions based on material and food type
+    # Questions based on material and food type
     questions = []
-    if material in ["Polystyrène", "Polypropylène", "Polyéthylène", "PET", "Aluminium", "Métal"]:
-        questions = [
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers", "Pellicules de cellulose régénérée", "Silicones", "Verre", "Zinc"]:
+        questions.extend([
             "Le matériau est-il en contact direct avec l'aliment ?",
-            "Y a-t-il une barrière fonctionnelle ?",
-            "Le matériau est-il composé de plusieurs couches ?",
-            "Le matériau est-il recyclé ?",
-            "Le matériau est-il actif ou intelligent ?",
             "Le matériau est-il soumis à un traitement thermique ?",
-            "Quelle est la température maximale du traitement thermique ?",
-            "Quelle est la durée maximale du traitement thermique ?",
-            "Quelle est la durée de conservation du produit (DLC ou DLUO) ?"
-        ]
-    # ... (Add logic for other materials as needed)
+            "Quelle est la température maximale du traitement thermique (en °C) ?",
+            "Quelle est la durée maximale du traitement thermique (en minutes) ?",
+            "Quelle est la durée de conservation du produit (DLC ou DLUO) (en jours) ?"
+        ])
+        if material in ["Matières plastiques", "Pellicules de cellulose régénérée"]:
+            questions.extend([
+                "Y a-t-il une barrière fonctionnelle ?",
+                "Le matériau est-il composé de plusieurs couches ?",
+                "Le matériau est-il recyclé ?",
+                "Le matériau est-il actif ou intelligent ?"
+            ])
+        if material == "Bois":
+            questions.append("Le matériau est-il traité ?")
+        if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
+            questions.append("Le matériau est-il traité (ex: étamé, galvanisé, etc.) ?")
+        if material == "Verre":
+            questions.append("Le matériau est-il décoré ou imprimé ?")
+        if material in ["Céramiques", "Verre"]:
+            questions.append("Le matériau est-il en contact avec des aliments acides ?")
+        if material == "Papier/Carton":
+            questions.extend([
+                "Le matériau est-il composé de fibres recyclées ?",
+                "Le matériau est-il imprimé ?",
+                "Le matériau est-il en contact avec des aliments humides ou gras ?"
+            ])
+    else:
+        questions.extend([
+            "Le matériau est-il en contact direct avec l'aliment ?",
+            "Le matériau est-il composé de plusieurs couches ?"
+        ])
 
-    # Create a list of answers
+    # Answers
     answers = []
     for question in questions:
-        answer = st.radio(question, ("Oui", "Non"))
+        if question.startswith("Quelle est"):
+            answer = st.text_input(question)
+        else:
+            answer = st.radio(question, ("Oui", "Non"))
         answers.append(answer)
 
+    # Tests and Requirements
     st.subheader("Tests et Exigences:")
     tests = []
     requirements = []
 
-    # Logigramme 2 (Décret 2008-1469) - Example logic - Adapt based on the ACTIA guide
-    if material in ["Polystyrène", "Polypropylène", "Polyéthylène", "PET", "Aluminium", "Métal"]:
-        if answers[0] == "Oui":  # Contact Direct
-            if answers[5] == "Oui":  # Thermal Treatment
-                tests.append("Migration globale")
-                tests.append("Migration spécifique")
-                requirements.append("Limite de migration globale (10 mg/dm²)")
-                requirements.append("Limite de migration spécifique pour les substances concernées")
-        else:
-            tests.append("Migration spécifique pour les substances concernées")
-        if answers[8] == "Oui": # DLC/DLUO
-            tests.append("Tests organoleptiques")
-        if answers[6] == "Oui": # Thermal Treatment Max Temp
-            if int(st.text_input("Température maximale du traitement thermique (en °C)")) > 100:
-                tests.append("Migration spécifique pour les substances sensibles à la chaleur")
+    # Logigramme 2 (Décret 2008-1469)
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers", "Pellicules de cellulose régénérée", "Silicones", "Verre", "Zinc"]:
+        if answers[0] == "Oui":  # Contact direct
+            if answers[1] == "Oui":  # Traitement thermique
+                tests.extend(["Migration globale", "Migration spécifique"])
+                requirements.extend(["Limite de migration globale (10 mg/dm²)", "Limite de migration spécifique pour les substances concernées"])
+                if int(answers[2]) > 100:  # Température maximale du traitement thermique
+                    tests.append("Migration spécifique pour les substances sensibles à la chaleur")
+            else:
+                tests.append("Migration spécifique pour les substances concernées")
+            if int(answers[4]) > 0:  # Durée de conservation (DLC ou DLUO)
+                tests.append("Tests organoleptiques")
+        if material == "Bois":
+            if answers[5] == "Oui":  # Traitement du bois
+                requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
+        if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
+            if answers[5] == "Oui":  # Traitement du métal
+                requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
+        if material == "Verre":
+            if answers[5] == "Oui":  # Décoré ou imprimé
+                requirements.append("Vérifier la conformité des décors et des encres.")
+        if material in ["Céramiques", "Verre"]:
+            if answers[6] == "Oui":  # Contact avec des aliments acides
+                requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
 
-    # Logigramme 3 (Mesures spécifiques) - Replace with ACTIA Guide logic
-    if material in ["Polystyrène", "Polypropylène", "Polyéthylène", "PET"]:
-        if answers[1] == "Oui": # Barrier Function
+    # Logigramme 3 (Mesures spécifiques européennes)
+    if material == "Matières plastiques":
+        if answers[5] == "Oui":  # Barrière fonctionnelle
             requirements.append("Vérifier la performance de la barrière fonctionnelle.")
-        if answers[2] == "Oui": # MultiLayer
-            tests.append("Migration spécifique pour chaque couche")
-        if answers[3] == "Oui": # Recycled
+        if answers[6] == "Oui":  # Plusieurs couches
+            tests.append("Migration spécifique pour chaque couche.")
+        if answers[7] == "Oui":  # Recyclé
             requirements.append("Vérifier la conformité du processus de recyclage.")
-        if answers[4] == "Oui": # Active
+        if answers[8] == "Oui":  # Actif ou intelligent
             requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques.")
-    # ... (Add logic for other materials as needed)
+    elif material == "Pellicules de cellulose régénérée":
+        if answers[5] == "Oui":  # Barrière fonctionnelle
+            requirements.append("Vérifier la performance de la barrière fonctionnelle.")
+        if answers[6] == "Oui":  # Plusieurs couches
+            tests.append("Migration spécifique pour chaque couche.")
+        if answers[7] == "Oui":  # Recyclé
+            requirements.append("Vérifier la conformité du processus de recyclage.")
+        if answers[8] == "Oui":  # Actif ou intelligent
+            requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques.")
 
-    # Logigramme 4 (Mesures spécifiques françaises) - Replace with ACTIA Guide logic
+    # Logigramme 4 (Mesures spécifiques françaises)
     if material == "Aluminium":
-        if answers[0] == "Oui": # Contact Direct
-            if int(st.text_input("Teneur en aluminium (%)")) < 99:
+        if answers[0] == "Oui":  # Contact direct
+            if float(answers[2]) > 99:  # Teneur en aluminium
                 requirements.append("Vérifier la conformité de la teneur en aluminium.")
-            if int(st.text_input("Teneur en impuretés (%)")) > 1:
+            if float(answers[3]) > 1:  # Teneur en impuretés
                 requirements.append("Vérifier la conformité de la teneur en impuretés.")
-    if material == "Métal":
-        if answers[1] == "Oui":  # Treated
-            if st.text_input("Type de traitement du métal") in ["Étamé", "Galvanisé"]:
-                requirements.append("Vérifier la conformité aux restrictions d'emploi pour les métaux traités (ex: cuivre, zinc galvanisé).")
-        if answers[2] == "Oui": # Thermal Treatment
-            if int(st.text_input("Température maximale du traitement thermique (en °C)")) > 100:
-                tests.append("Migration spécifique pour les substances sensibles à la chaleur")
-    # ... (Add logic for other materials as needed)
+    elif material == "MCDA TRAITÉS PAR RAYONNEMENTS IONISANTS":
+        if float(answers[2]) < 10:  # Dose de traitement
+            requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
+        else:
+            requirements.append("Dossier de demande d'autorisation de traitement pour doses supérieures à 10 kGy.")
+    elif material == "Produits de nettoyage des MCDA":
+        requirements.append("Dossier de demande d'autorisation de substance.")
+        requirements.append("Restriction d'emploi concernant les produits de rinçage.")
+        requirements.append("Liste positive.")
 
-    # Logigramme 5 (Recommandations françaises) - Replace with ACTIA Guide logic
-    if material == "Papier/Carton":
-        if answers[0] == "Oui": # Contact Direct
-            requirements.append("Vérifier l'origine des fibres recyclées.")
-        if answers[2] == "Oui": # Printed
-            requirements.append("Vérifier la conformité des encres d'impression.")
-        if answers[3] == "Oui": # HumidOrFattyFood
-            requirements.append("Vérifier la résistance du matériau aux aliments humides ou gras.")
-    # ... (Add logic for other materials as needed)
+    # Logigramme 5 (Recommandations françaises)
+    if material == "Aciers":
+        requirements.append("Vérifier la teneur en plomb, cadmium, arsenic, cobalt.")
+        requirements.append("Vérifier la LLS des éléments ajoutés.")
+    elif material == "Aciers inoxydables":
+        requirements.append("Vérifier les exigences françaises pour les aciers inoxydables (Arrêté du 13 janvier 1976).")
+    elif material == "Aluminium":
+        requirements.append("Vérifier les exigences françaises pour les aluminiums et alliages (Arrêté du 27 août 1987).")
+    elif material == "Bois":
+        requirements.append("Vérifier la liste des essences de bois autorisées au contact des aliments (Arrêté du 15 novembre 1945).")
+        requirements.append("Vérifier la teneur en pentachlorophénol.")
+    elif material == "Caoutchoucs":
+        requirements.append("Vérifier les exigences françaises pour les caoutchoucs (Arrêté du 9 novembre 1994).")
+        requirements.append("Vérifier les modalités de contrôle des matières organiques volatiles libres.")
+    elif material == "Étain":
+        requirements.append("Vérifier la teneur en étain ≥ 97 %.")
+        requirements.append("Vérifier la teneur en antimoine et cuivre.")
+        requirements.append("Vérifier la teneur en plomb, cadmium, arsenic.")
+        requirements.append("Vérifier la LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre.")
+    elif material == "Fontes":
+        requirements.append("Vérifier la teneur en plomb, cadmium, arsenic.")
+        requirements.append("Vérifier la LLS des éléments ajoutés.")
+    elif material == "Métaux blanchis":
+        requirements.append("Vérifier la teneur en plomb, cadmium, arsenic.")
+        requirements.append("Vérifier la LLS des éléments ajoutés, en particulier : plomb, cadmium.")
+    elif material == "Verre, cristal, vitrocéramique":
+        requirements.append("Vérifier la LMS pour le plomb et cadmium.")
+    elif material == "Objets émaillés et décorés":
+        requirements.append("Vérifier la LMS pour le plomb, cadmium et chrome VI.")
+    elif material == "Revêtements organiques de supports métalliques":
+        requirements.append("Vérifier la liste des substances évaluées dans la résolution-cadre ResAp (2004) 15.")
+        requirements.append("Vérifier la limite de migration globale (10 mg/dm³ ou 60 mg/kg d'aliment).")
+    elif material == "Revêtements métalliques de supports métalliques":
+        requirements.append("Vérifier la LLS des éléments ajoutés, en particulier : nickel, chrome, zinc, cuivre.")
+    elif material == "Support bois":
+        requirements.append("Vérifier la liste des essences de bois autorisées au contact des aliments (Arrêté du 15 novembre 1945).")
+        requirements.append("Vérifier la teneur en pentachlorophénol.")
+    elif material == "Vernis de revêtement":
+        requirements.append("Vérifier la liste des substances évaluées dans la résolution cadre ResAp (2004) 15.")
+    elif material == "Matière plastique de revêtement":
+        requirements.append("Vérifier la liste de l'UE du règlement (UE) n° 10/2011.")
+    elif material == "Support papiers et cartons":
+        requirements.append("Vérifier les listes des matières cellulosiques recommandées par la profession.")
+        requirements.append("Vérifier les listes des additifs autorisés en France, dans l'UE, aux USA et en Allemagne.")
+        requirements.append("Vérifier le transfert des constituants antimicrobiens.")
+        requirements.append("Vérifier l'inertie organoleptique.")
+    elif material == "PAPIERS ET CARTONS":
+        requirements.append("Vérifier la teneur en pentachlorophénol.")
+        requirements.append("Vérifier la teneur en polychlorobiphenyls.")
+        requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
+        if answers[2] == "Oui":  # Contact avec des aliments humides ou gras
+            requirements.append("Vérifier la migration des azurants optiques.")
+            requirements.append("Vérifier la migration des colorants.")
+    elif material == "ENCRES":
+        requirements.append("Vérifier les critères de composition.")
+        requirements.append("Vérifier les critères d'exclusion.")
+        requirements.append("Vérifier la LMS des substances autorisées ou évaluées par l'UE, USA, BFR, Conseil de l'Europe.")
+        requirements.append("Vérifier la LMS = 0,01 mg/kg d'aliment pour les substances non évaluées.")
+        requirements.append("Vérifier la LMS = 0,05 mg/kg d'aliment pour les substances évaluées par 3 tests de mutagenèse.")
+        requirements.append("Vérifier la LMS > 0,05 mg/kg d'aliment pour les substances évaluées selon les règles de l'Efsa.")
+    elif material == "COMPLEXES":
+        requirements.append("Vérifier la limite de migration globale (10 mg/dm³ ou 60 mg/kg d'aliment).")
+        requirements.append("Vérifier la limite de migration spécifique (en mg/kg d'aliment).")
 
     # Display Results
     st.write(f"**Tests recommandés:** {', '.join(tests)}")
@@ -196,110 +407,7 @@ def logigramme_2():
         mime="text/plain"
     )
 
-# --- Logigramme 3: Mesures spécifiques (EU) ---
-def logigramme_3(material):
-    st.subheader("Logigramme 3: Mesures spécifiques (EU)")
-
-    # Replace with detailed information from ACTIA Guide
-    if material == "Polystyrène":
-        st.write("Liste positive: [Liste des substances autorisées pour le Polystyrène]")
-        st.write("Limite de migration globale: 10 mg/dm²")
-        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
-        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
-    elif material == "Polypropylène":
-        st.write("Liste positive: [Liste des substances autorisées pour le Polypropylène]")
-        st.write("Limite de migration globale: 10 mg/dm²")
-        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
-        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
-    elif material == "Polyéthylène":
-        st.write("Liste positive: [Liste des substances autorisées pour le Polyéthylène]")
-        st.write("Limite de migration globale: 10 mg/dm²")
-        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
-        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
-    elif material == "Polyéthylène Téréphtalate (PET)":
-        st.write("Liste positive: [Liste des substances autorisées pour le PET]")
-        st.write("Limite de migration globale: 10 mg/dm²")
-        st.write("Limite de migration spécifique: [Liste des substances avec LMS]")
-        st.write("Restrictions d'emploi: [Conditions spécifiques d'utilisation]")
-    # Add logic for other materials as needed
-    else:
-        st.write("Veuillez consulter le guide ACTIA for more details.")
-
-# --- Logigramme 4: Mesures spécifiques françaises ---
-def logigramme_4(material):
-    st.subheader("Logigramme 4: Mesures spécifiques françaises")
-
-    # Replace with detailed information from ACTIA Guide
-    if material == "Aluminium":
-        st.write("Teneur en aluminium ≥ 99%")
-        st.write("Teneurs limites pour les impuretés: [Liste des impuretés et teneurs]")
-    elif material == "Acier inoxydable":
-        st.write("Teneur en chrome ≥ 13%")
-        st.write("Teneurs limites pour d'autres éléments: [Liste des éléments et teneurs]")
-    elif material == "Bois":
-        st.write("Essences de bois autorisées: [Liste des essences]")
-        st.write("Teneur en pentachlorophénol: [Limite de teneur]")
-    # Add logic for other materials as needed
-    else:
-        st.write("Veuillez consulter le guide ACTIA for more details.")
-
-# --- Logigramme 5: Recommandations françaises ---
-def logigramme_5(material):
-    st.subheader("Logigramme 5: Recommandations françaises")
-
-    # Replace with detailed information from ACTIA Guide
-    if material == "Papier/Carton":
-        st.write("Matières cellulosiques recommandées: [Liste des matières]")
-        st.write("Substances autorisées ou évaluées: [Liste des substances]")
-    elif material == "Bois":
-        st.write("Essences de bois supplémentaires: [Liste des essences]")
-        st.write("Substances évaluées pour les vernis: [Liste des substances]")
-    elif material == "Verre":
-        st.write("Teneur en plomb, cadmium, arsenic: [Limites de teneur]")
-    elif material == "Métal":
-        st.write("Teneurs limites pour le plomb, cadmium, arsenic: [Limites de teneur]")
-    elif material == "Acier inoxydable":
-        st.write("Teneur en chrome ≥ 13%")
-        st.write("Teneurs limites pour d'autres éléments: [Liste des éléments et teneurs]")
-    elif material == "Aluminiums":
-        st.write("Teneur en plomb, cadmium, arsenic: [Limites de teneur]")
-    elif material == "Étain":
-        st.write("Teneur en étain ≥ 97%")
-        st.write("Teneur en antimoine et cuivre: [Limites de teneur]")
-    elif material == "Zinc":
-        st.write("Teneur en zinc ≥ 99.85%")
-        st.write("Teneur en plomb, cadmium, arsenic: [Limites de teneur]")
-    elif material == "Fonts":
-        st.write("Teneur en plomb, cadmium, arsenic: [Limites de teneur]")
-        st.write("Teneurs limites pour d'autres éléments: [Liste des éléments et teneurs]")
-    elif material == "Métaux blanchis":
-        st.write("Teneur en plomb, cadmium, arsenic: [Limites de teneur]")
-        st.write("Teneurs limites pour d'autres éléments: [Liste des éléments et teneurs]")
-    elif material == "Revêtements organiques ou métalliques":
-        st.write("Substances évaluées pour les vernis: [Liste des substances]")
-        st.write("Substances autorisées ou évaluées pour les revêtements de type 'plastique': [Liste des substances]")
-    elif material == "Encres":
-        st.write("Critères de composition des encres: [Liste des critères]")
-    elif material == "Vernis de revêtement":
-        st.write("Limites de migration globale: [Valeurs]")
-        st.write("Limites de migration spécifique: [Valeurs]")
-    # Add logic for other materials as needed
-    else:
-        st.write("Veuillez consulter le guide ACTIA for more details.")
-
-# --- Main Execution ---
-if choice == "Réglementation et Spécificités":
-    logigramme_1()
-elif choice == "Tests et Exigences":
-    logigramme_2()
-    if material in ["Polystyrène", "Polypropylène", "Polyéthylène", "PET"]:
-        logigramme_3(material)
-    if material in ["Aluminium", "Acier inoxydable", "Bois"]:
-        logigramme_4(material)
-    if material in ["Papier/Carton", "Bois", "Verre", "Métal", "Acier inoxydable", "Aluminiums", "Étain", "Zinc", "Fonts", "Métaux blanchis", "Revêtements organiques ou métalliques", "Encres", "Vernis de revêtement"]:
-        logigramme_5(material)
-
-# Final Conclusion
+# Final Conclusion 
 st.header("Conclusion")
 
 st.write("Basé sur les informations fournies et l'analyse des logigrammes, la conclusion est:")
