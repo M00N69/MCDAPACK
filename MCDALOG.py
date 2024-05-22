@@ -1,8 +1,9 @@
 import streamlit as st
+import pandas as pd
 
-st.set_page_config(layout="wide", page_title="Food Packaging Safety Assistant", initial_sidebar_state="expanded")
+st.set_page_config(layout="wide", page_title="Assistant Sécurité Emballages Alimentaires", initial_sidebar_state="expanded")
 
-st.title("Food Packaging Safety Assistant")
+st.title("Assistant Sécurité Emballages Alimentaires")
 
 # Initial Contextual Information
 with st.expander("Contexte de l'Emballage", expanded=True):
@@ -32,161 +33,181 @@ if choice == "Réglementation et Spécificités":
     st.subheader("Réglementations et Spécifications:")
 
     if material == "Aciers":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en plomb, cadmium, arsenic, cobalt")
-        st.write("  - LLS des éléments ajoutés")
+        st.write("## Aciers")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en plomb, cadmium, arsenic, cobalt")
+        st.write("- LLS des éléments ajoutés")
     elif material == "Aciers inoxydables":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("  - Arrêté du 13 janvier 1976: Aciers inoxydables")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en chrome ≥ 13%")
-        st.write("  - Teneurs limites en éléments ajoutés")
+        st.write("## Aciers inoxydables")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("- Arrêté du 13 janvier 1976: Aciers inoxydables")
+        st.write("### Spécifications:")
+        st.write("- Teneur en chrome ≥ 13%")
+        st.write("- Teneurs limites en éléments ajoutés")
     elif material == "Aluminium":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("  - Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en aluminium (>99%)")
-        st.write("  - Teneur en impuretés (≤ 1 %)")
+        st.write("## Aluminium")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("- Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
+        st.write("### Spécifications:")
+        st.write("- Teneur en aluminium (>99%)")
+        st.write("- Teneur en impuretés (≤ 1 %)")
     elif material == "Alliages d'aluminium":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en aluminium")
-        st.write("  - Teneurs limites en éléments ajoutés ou impuretés")
+        st.write("## Alliages d'aluminium")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 27 août 1987: Aluminium et alliages d'aluminium")
+        st.write("### Spécifications:")
+        st.write("- Teneur en aluminium")
+        st.write("- Teneurs limites en éléments ajoutés ou impuretés")
     elif material == "Bois":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: Bois")
-        st.write("**Spécifications:**")
-        st.write("  - Liste des essences de bois autorisées au contact des aliments")
-        st.write("  - Teneur en pentachlorophénol")
+        st.write("## Bois")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Bois")
+        st.write("### Spécifications:")
+        st.write("- Liste des essences de bois autorisées au contact des aliments")
+        st.write("- Teneur en pentachlorophénol")
     elif material == "Caoutchoucs":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 9 novembre 1994: Caoutchoucs")
-        st.write("  - Arrêté du 9 août 2005: Caoutchoucs")
-        st.write("  - Arrêté du 19 décembre 2006: Caoutchoucs")
-        st.write("**Spécifications:**")
-        st.write("  - Listes positives (monomères et additifs)")
-        st.write("  - Matières organiques volatiles libres (≤ 0,5 %)")
-        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
-        st.write("  - Formaldehyde (LMS = 3 mg/kg)")
-        st.write("  - Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
-        st.write("  - N-nitrosamines (LMS = 1 µg/dm³)")
-        st.write("  - Substances N-nitrosables (LMS = 10 µg/dm³)")
-        st.write("  - Monomères avec LMS")
-        st.write("  - Additifs avec LMS")
-        st.write("  - Peroxydes")
+        st.write("## Caoutchoucs")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 9 novembre 1994: Caoutchoucs")
+        st.write("- Arrêté du 9 août 2005: Caoutchoucs")
+        st.write("- Arrêté du 19 décembre 2006: Caoutchoucs")
+        st.write("### Spécifications:")
+        st.write("- Listes positives (monomères et additifs)")
+        st.write("- Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Formaldehyde (LMS = 3 mg/kg)")
+        st.write("- Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("- N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("- Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("- Monomères avec LMS")
+        st.write("- Additifs avec LMS")
+        st.write("- Peroxydes")
     elif material == "Céramiques":
-        st.write("**Réglementations:**")
-        st.write("  - Directive n° 84/500/CEE: Céramiques")
-        st.write("  - Directive n° 2005/31/CE: Céramiques")
-        st.write("  - Arrêté du 7 novembre 1985: Céramiques")
-        st.write("  - Arrêté du 23 mai 2006: Céramiques")
-        st.write("**Spécifications:**")
-        st.write("  - Limite de migration spécifique du plomb")
-        st.write("  - Limite de migration spécifique du cadmium")
-        st.write("  - Déclaration écrite de conformité")
+        st.write("## Céramiques")
+        st.write("### Réglementations:")
+        st.write("- Directive n° 84/500/CEE: Céramiques")
+        st.write("- Directive n° 2005/31/CE: Céramiques")
+        st.write("- Arrêté du 7 novembre 1985: Céramiques")
+        st.write("- Arrêté du 23 mai 2006: Céramiques")
+        st.write("### Spécifications:")
+        st.write("- Limite de migration spécifique du plomb")
+        st.write("- Limite de migration spécifique du cadmium")
+        st.write("- Déclaration écrite de conformité")
     elif material == "Étain":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("  - Décret n° 76-492: Objets en étain")
-        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en étain ≥ 97 %")
-        st.write("  - Teneur en antimoine et cuivre")
-        st.write("  - Teneur en plomb, cadmium, arsenic")
-        st.write("  - LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre")
+        st.write("## Étain")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("- Décret n° 76-492: Objets en étain")
+        st.write("- Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("### Spécifications:")
+        st.write("- Teneur en étain ≥ 97 %")
+        st.write("- Teneur en antimoine et cuivre")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre")
     elif material == "Fontes":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en plomb, cadmium, arsenic")
-        st.write("  - LLS des éléments ajoutés")
+        st.write("## Fontes")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés")
     elif material == "Grès - Porcelaine":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: Grès-porcelaine")
-        st.write("**Spécifications:**")
-        st.write("  - Interdiction des décors avec couleurs à base de métaux toxiques")
+        st.write("## Grès - Porcelaine")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Grès-porcelaine")
+        st.write("### Spécifications:")
+        st.write("- Interdiction des décors avec couleurs à base de métaux toxiques")
     elif material == "Matières plastiques":
-        st.write("**Réglementations:**")
-        st.write("  - Règlement (CE) N° 10 / 2011: Matières plastiques")
-        st.write("**Spécifications:**")
-        st.write("  - Liste de l'UE")
-        st.write("  - Limite de migration globale (10 mg/dm³)")
-        st.write("  - Limite de migration spécifique (en mg/kg d'aliment)")
-        st.write("  - Déclaration écrite de conformité")
+        st.write("## Matières plastiques")
+        st.write("### Réglementations:")
+        st.write("- Règlement (CE) N° 10 / 2011: Matières plastiques")
+        st.write("### Spécifications:")
+        st.write("- Liste de l'UE")
+        st.write("- Limite de migration globale (10 mg/dm³)")
+        st.write("- Limite de migration spécifique (en mg/kg d'aliment)")
+        st.write("- Déclaration écrite de conformité")
     elif material == "Métaux blanchis":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en plomb, cadmium, arsenic")
-        st.write("  - LLS des éléments ajoutés, en particulier : plomb, cadmium")
+        st.write("## Métaux blanchis")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier : plomb, cadmium")
     elif material == "Métaux et alliages de métaux":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: Métaux et alliages")
-        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
-        st.write("**Spécifications:**")
-        st.write("  - Liste des métaux autorisés au contact des aliments")
+        st.write("## Métaux et alliages de métaux")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Métaux et alliages")
+        st.write("- Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("### Spécifications:")
+        st.write("- Liste des métaux autorisés au contact des aliments")
     elif material == "Objets en étain":
-        st.write("**Réglementations:**")
-        st.write("  - Décret N° 76-492: Objets en étain")
-        st.write("**Spécifications:**")
+        st.write("## Objets en étain")
+        st.write("### Réglementations:")
+        st.write("- Décret N° 76-492: Objets en étain")
+        st.write("### Spécifications:")
         st.write("  - Restrictions d'emploi concernant la quantité de plomb & d'arsenic éventuellement présents dans l'étain")
     elif material == "Papiers":
-        st.write("**Réglementations:**")
+        st.write("## Papiers")
+        st.write("### Réglementations:")
         st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
-        st.write("**Spécifications:**")
+        st.write("### Spécifications:")
         st.write("  - Interdiction du contact direct de papier peint et de papier imprimé (sauf certains légumes)")
     elif material == "Pellicules de cellulose régénérée":
-        st.write("**Réglementations:**")
-        st.write("  - Directive N° 2007 / 42 / CE: Pellicule de cellulose régénérée")
-        st.write("  - Arrêté du 4 novembre 1993: Pellicules de cellulose régénérée")
-        st.write("  - Arrêté du 2 octobre 2004: Pellicules de cellulose régénérée")
-        st.write("**Spécifications:**")
-        st.write("  - Listes positives (monomères et additifs)")
-        st.write("  - Matières organiques volatiles libres (≤ 0,5 %)")
-        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
-        st.write("  - Formaldehyde (LMS = 3 mg/kg)")
-        st.write("  - Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
-        st.write("  - N-nitrosamines (LMS = 1 µg/dm³)")
-        st.write("  - Substances N-nitrosables (LMS = 10 µg/dm³)")
-        st.write("  - Monomères avec LMS")
-        st.write("  - Additifs avec LMS")
-        st.write("  - Peroxydes")
+        st.write("## Pellicules de cellulose régénérée")
+        st.write("### Réglementations:")
+        st.write("- Directive N° 2007 / 42 / CE: Pellicule de cellulose régénérée")
+        st.write("- Arrêté du 4 novembre 1993: Pellicules de cellulose régénérée")
+        st.write("- Arrêté du 2 octobre 2004: Pellicules de cellulose régénérée")
+        st.write("### Spécifications:")
+        st.write("- Listes positives (monomères et additifs)")
+        st.write("- Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Formaldehyde (LMS = 3 mg/kg)")
+        st.write("- Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("- N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("- Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("- Monomères avec LMS")
+        st.write("- Additifs avec LMS")
+        st.write("- Peroxydes")
     elif material == "Produits de nettoyage des MCDA":
-        st.write("**Réglementations:**")
-        st.write("  - Décret n° 73/138: Produits de nettoyage des matériaux")
-        st.write("  - Décret n° 1469/2008: Sanctions et mesures spécifiques françaises")
-        st.write("  - Arrêté du 8 septembre 1999: Produits de nettoyage des matériaux")
-        st.write("**Spécifications:**")
-        st.write("  - Dossier de demande d'autorisation de substance")
-        st.write("  - Restriction d'emploi concernant les produits de rinçage")
-        st.write("  - Liste positive")
+        st.write("## Produits de nettoyage des MCDA")
+        st.write("### Réglementations:")
+        st.write("- Décret n° 73/138: Produits de nettoyage des matériaux")
+        st.write("- Décret n° 1469/2008: Sanctions et mesures spécifiques françaises")
+        st.write("- Arrêté du 8 septembre 1999: Produits de nettoyage des matériaux")
+        st.write("### Spécifications:")
+        st.write("- Dossier de demande d'autorisation de substance")
+        st.write("- Restriction d'emploi concernant les produits de rinçage")
+        st.write("- Liste positive")
     elif material == "Silicones":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 25 novembre 1992: Silicones")
-        st.write("**Spécifications:**")
-        st.write("  - Liste positive")
-        st.write("  - Matières organiques volatiles libres (≤ 0,5%)")
-        st.write("  - Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
-        st.write("  - Organo-étains (LMS = 0,1 mg/kg)")
-        st.write("  - Peroxyde")
+        st.write("## Silicones")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 25 novembre 1992: Silicones")
+        st.write("### Spécifications:")
+        st.write("- Liste positive")
+        st.write("- Matières organiques volatiles libres (≤ 0,5%)")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Organo-étains (LMS = 0,1 mg/kg)")
+        st.write("- Peroxyde")
     elif material == "Verre":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: Verre")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur en oxyde de plomb < 24%")
+        st.write("## Verre")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Verre")
+        st.write("### Spécifications:")
+        st.write("- Teneur en oxyde de plomb < 24%")
     elif material == "Zinc":
-        st.write("**Réglementations:**")
-        st.write("  - Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
-        st.write("  - Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
-        st.write("**Spécifications:**")
-        st.write("  - Teneur zinc ≥ 99,85 %")
-        st.write("  - Teneur en plomb, cadmium, arsenic")
-        st.write("  - LLS des éléments ajoutés, en particulier: zinc, plomb, cadmium, arsenic")
+        st.write("## Zinc")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("- Arrêté du 28 juin 1912: Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic")
+        st.write("### Spécifications:")
+        st.write("- Teneur zinc ≥ 99,85 %")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier: zinc, plomb, cadmium, arsenic")
     else:
         st.write("Veuillez consulter le guide ACTIA pour plus d'informations sur ce matériau.")
 
@@ -206,8 +227,8 @@ elif choice == "Tests et Exigences":
         "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
         "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine",
         "Matières plastiques", "Métaux blanchis", "Métaux et alliages de métaux", 
-        "Objets en étain", "Papiers", "Pellicules de cellulose régénérée",
-        "Produits de nettoyage des MCDA", "Silicones", "Verre", "Zinc", "Autres"
+        "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée",
+        "Produits de nettoyage des MCDA", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc", "Autres"
     ]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
@@ -220,7 +241,7 @@ elif choice == "Tests et Exigences":
 
     # Questions based on material and food type
     questions = []
-    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers", "Pellicules de cellulose régénérée", "Silicones", "Verre", "Zinc"]:
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
         questions.extend([
             "Le matériau est-il en contact direct avec l'aliment ?",
             "Le matériau est-il soumis à un traitement thermique ?",
@@ -239,11 +260,11 @@ elif choice == "Tests et Exigences":
             questions.append("Le matériau est-il traité ?")
         if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
             questions.append("Le matériau est-il traité (ex: étamé, galvanisé, etc.) ?")
-        if material == "Verre":
+        if material == "Verre, cristal, vitrocéramique":
             questions.append("Le matériau est-il décoré ou imprimé ?")
-        if material in ["Céramiques", "Verre"]:
+        if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
             questions.append("Le matériau est-il en contact avec des aliments acides ?")
-        if material == "Papier/Carton":
+        if material == "Papiers ET CARTONS":
             questions.extend([
                 "Le matériau est-il composé de fibres recyclées ?",
                 "Le matériau est-il imprimé ?",
@@ -270,7 +291,7 @@ elif choice == "Tests et Exigences":
     requirements = []
 
     # Logigramme 2 (Décret 2008-1469)
-    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers", "Pellicules de cellulose régénérée", "Silicones", "Verre", "Zinc"]:
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
         if answers[0] == "Oui":  # Contact direct
             if answers[1] == "Oui":  # Traitement thermique
                 tests.extend(["Migration globale", "Migration spécifique"])
@@ -287,10 +308,10 @@ elif choice == "Tests et Exigences":
         if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
             if answers[5] == "Oui":  # Traitement du métal
                 requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
-        if material == "Verre":
+        if material == "Verre, cristal, vitrocéramique":
             if answers[5] == "Oui":  # Décoré ou imprimé
                 requirements.append("Vérifier la conformité des décors et des encres.")
-        if material in ["Céramiques", "Verre"]:
+        if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
             if answers[6] == "Oui":  # Contact avec des aliments acides
                 requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
 
