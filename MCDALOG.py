@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 st.set_page_config(layout="wide", page_title="Assistant Sécurité Emballages Alimentaires", initial_sidebar_state="expanded")
 
@@ -16,6 +15,7 @@ with st.expander("Contexte de l'Emballage", expanded=True):
 st.sidebar.title("Navigation")
 choice = st.sidebar.radio("Choisir un logigramme:", ("Réglementation et Spécificités", "Tests et Exigences"))
 
+# --- Logigramme 1: Réglementation et Spécificités ---
 if choice == "Réglementation et Spécificités":
     st.header("Logigramme 1: Réglementation et Spécificités selon le matériau")
 
@@ -32,6 +32,7 @@ if choice == "Réglementation et Spécificités":
     # Display Regulations and Specifications
     st.subheader("Réglementations et Spécifications:")
 
+    # --- Detailed Regulations and Specifications for each Material ---
     if material == "Aciers":
         st.write("## Aciers")
         st.write("### Réglementations:")
@@ -72,6 +73,7 @@ if choice == "Réglementation et Spécificités":
     elif material == "Caoutchoucs":
         st.write("## Caoutchoucs")
         st.write("### Réglementations:")
+        st.write("- Directive n° 93/11/CE: Caoutchoucs (tétines et sucettes)")
         st.write("- Arrêté du 9 novembre 1994: Caoutchoucs")
         st.write("- Arrêté du 9 août 2005: Caoutchoucs")
         st.write("- Arrêté du 19 décembre 2006: Caoutchoucs")
@@ -219,6 +221,7 @@ if choice == "Réglementation et Spécificités":
         mime="text/plain"
     )
 
+# --- Logigramme 2: Tests et Exigences ---
 elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
@@ -241,7 +244,7 @@ elif choice == "Tests et Exigences":
 
     # Questions based on material and food type
     questions = []
-    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
         questions.extend([
             "Le matériau est-il en contact direct avec l'aliment ?",
             "Le matériau est-il soumis à un traitement thermique ?",
@@ -264,12 +267,13 @@ elif choice == "Tests et Exigences":
             questions.append("Le matériau est-il décoré ou imprimé ?")
         if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
             questions.append("Le matériau est-il en contact avec des aliments acides ?")
-        if material == "Papiers ET CARTONS":
-            questions.extend([
-                "Le matériau est-il composé de fibres recyclées ?",
-                "Le matériau est-il imprimé ?",
-                "Le matériau est-il en contact avec des aliments humides ou gras ?"
-            ])
+    elif material == "Papiers ET CARTONS":
+        questions.extend([
+            "Le matériau est-il en contact direct avec l'aliment ?",
+            "Le matériau est-il composé de fibres recyclées ?",
+            "Le matériau est-il imprimé ?",
+            "Le matériau est-il en contact avec des aliments humides ou gras ?"
+        ])
     else:
         questions.extend([
             "Le matériau est-il en contact direct avec l'aliment ?",
@@ -290,8 +294,8 @@ elif choice == "Tests et Exigences":
     tests = []
     requirements = []
 
-    # Logigramme 2 (Décret 2008-1469)
-    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
+    # --- Logigramme 2 Logic ---
+    if material in ["Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", "Objets en étain", "Pellicules de cellulose régénérée", "Silicones", "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"]:
         if answers[0] == "Oui":  # Contact direct
             if answers[1] == "Oui":  # Traitement thermique
                 tests.extend(["Migration globale", "Migration spécifique"])
@@ -314,17 +318,29 @@ elif choice == "Tests et Exigences":
         if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
             if answers[6] == "Oui":  # Contact avec des aliments acides
                 requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
+    elif material == "Papiers ET CARTONS":
+        if answers[0] == "Oui":  # Contact direct
+            requirements.append("Vérifier la teneur en pentachlorophénol.")
+            requirements.append("Vérifier la teneur en polychlorobiphenyls.")
+            requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
+            if answers[3] == "Oui":  # Contact avec des aliments humides ou gras
+                requirements.append("Vérifier la migration des azurants optiques.")
+                requirements.append("Vérifier la migration des colorants.")
+        if answers[1] == "Oui":  # Composé de fibres recyclées
+            requirements.append("Vérifier l'origine des fibres recyclées.")
+        if answers[2] == "Oui":  # Imprimé
+            requirements.append("Vérifier la conformité des encres d'impression.")
 
-    # Logigramme 3 (Mesures spécifiques européennes)
+    # --- Logigramme 3 Logic ---
     if material == "Matières plastiques":
         if answers[5] == "Oui":  # Barrière fonctionnelle
             requirements.append("Vérifier la performance de la barrière fonctionnelle.")
         if answers[6] == "Oui":  # Plusieurs couches
             tests.append("Migration spécifique pour chaque couche.")
         if answers[7] == "Oui":  # Recyclé
-            requirements.append("Vérifier la conformité du processus de recyclage.")
+            requirements.append("Vérifier la conformité du processus de recyclage (Règlement (CE) n° 282/2008).")
         if answers[8] == "Oui":  # Actif ou intelligent
-            requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques.")
+            requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques (Règlement (CE) n° 450/2009).")
     elif material == "Pellicules de cellulose régénérée":
         if answers[5] == "Oui":  # Barrière fonctionnelle
             requirements.append("Vérifier la performance de la barrière fonctionnelle.")
@@ -335,13 +351,42 @@ elif choice == "Tests et Exigences":
         if answers[8] == "Oui":  # Actif ou intelligent
             requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques.")
 
-    # Logigramme 4 (Mesures spécifiques françaises)
+    # --- Logigramme 4 Logic ---
     if material == "Aluminium":
         if answers[0] == "Oui":  # Contact direct
-            if float(answers[2]) > 99:  # Teneur en aluminium
-                requirements.append("Vérifier la conformité de la teneur en aluminium.")
+            if float(answers[2]) < 99:  # Teneur en aluminium
+                requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
             if float(answers[3]) > 1:  # Teneur en impuretés
-                requirements.append("Vérifier la conformité de la teneur en impuretés.")
+                requirements.append("Vérifier la conformité de la teneur en impuretés (≤1%).")
+    elif material == "Caoutchoucs":
+        if answers[0] == "Oui":  # Contact direct
+            requirements.append("Limite de migration des nitrosamines dans la salive = 0,01 mg/kg de matériau")
+            requirements.append("Limite de migration des substances N-nitrosables dans la salive = 0,1 mg/kg de matériau")
+    elif material == "Silicones":
+        if answers[0] == "Oui":  # Contact direct
+            requirements.append("Matières organiques volatiles libres (≤ 0,5%)")
+            requirements.append("Migration globale (LMG= 10 mg/dm³ ou 60 mg/kg d'aliment)")
+            requirements.append("Organo-étains (LMS = 0,1 mg/kg)")
+            requirements.append("Peroxydes")
+    elif material == "DÉRIVÉS ÉPOXYDIQUES DES VERNIS":
+        requirements.append("BFDGE et NOGE non autorisés")
+        requirements.append("LMS des dérivés H₂O du Badge = 9 mg/kg")
+        requirements.append("LMS des dérivés du HCI du Badge = 1 mg/kg")
+    elif material == "Pellicules de cellulose régénérée":
+        requirements.append("Listes positives (monomères et additifs)")
+        requirements.append("Matières organiques volatiles libres (≤ 0,5 %)")
+        requirements.append("Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        requirements.append("Formaldehyde (LMS = 3 mg/kg)")
+        requirements.append("Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        requirements.append("N-nitrosamines (LMS = 1 µg/dm³)")
+        requirements.append("Substances N-nitrosables (LMS = 10 µg/dm³)")
+        requirements.append("Monomères avec LMS")
+        requirements.append("Additifs avec LMS")
+        requirements.append("Peroxydes")
+    elif material == "Céramiques":
+        requirements.append("Limite de migration spécifique du plomb")
+        requirements.append("Limite de migration spécifique du cadmium")
+        requirements.append("Déclaration écrite de conformité")
     elif material == "MCDA TRAITÉS PAR RAYONNEMENTS IONISANTS":
         if float(answers[2]) < 10:  # Dose de traitement
             requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
@@ -352,7 +397,7 @@ elif choice == "Tests et Exigences":
         requirements.append("Restriction d'emploi concernant les produits de rinçage.")
         requirements.append("Liste positive.")
 
-    # Logigramme 5 (Recommandations françaises)
+    # --- Logigramme 5 Logic ---
     if material == "Aciers":
         requirements.append("Vérifier la teneur en plomb, cadmium, arsenic, cobalt.")
         requirements.append("Vérifier la LLS des éléments ajoutés.")
@@ -398,11 +443,11 @@ elif choice == "Tests et Exigences":
         requirements.append("Vérifier les listes des additifs autorisés en France, dans l'UE, aux USA et en Allemagne.")
         requirements.append("Vérifier le transfert des constituants antimicrobiens.")
         requirements.append("Vérifier l'inertie organoleptique.")
-    elif material == "PAPIERS ET CARTONS":
+    elif material == "Papiers ET CARTONS":
         requirements.append("Vérifier la teneur en pentachlorophénol.")
         requirements.append("Vérifier la teneur en polychlorobiphenyls.")
         requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
-        if answers[2] == "Oui":  # Contact avec des aliments humides ou gras
+        if answers[3] == "Oui":  # Contact avec des aliments humides ou gras
             requirements.append("Vérifier la migration des azurants optiques.")
             requirements.append("Vérifier la migration des colorants.")
     elif material == "ENCRES":
