@@ -2,6 +2,66 @@ import streamlit as st
 
 st.set_page_config(layout="wide", page_title="Assistant Sécurité Emballages Alimentaires", initial_sidebar_state="expanded")
 
+# CSS personnalisé pour la mise en forme
+st.markdown(
+    """
+    <style>
+    /* Couleur de fond de la barre latérale */
+    [data-testid="stSidebar"] {
+        background-color: #2398B2;
+    }
+
+    /* Couleur du texte du titre de la barre latérale */
+    [data-testid="stSidebar"] h1 {
+        color: black;
+    }
+
+    /* Couleur du texte des widgets de la barre latérale */
+    [data-testid="stSidebar"] .css-17eq0hr {
+        color: black;
+    }
+
+    /* Style de la bannière */
+    .banner {
+        background-image: url('https://github.com/M00N69/BUSCAR/blob/main/logo%2002%20copie.jpg?raw=true');
+        background-size: cover;
+        padding: 75px;
+        text-align: center;
+    }
+
+    /* Style des tableaux */
+    .dataframe td {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Style du logo dans la barre latérale */
+    .sidebar-logo-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .sidebar-logo {
+        width: 150px;
+        height: auto;
+    }
+    </style>
+    <div class="banner"></div>
+    """,
+    unsafe_allow_html=True
+)
+
+# Ajout du logo et du lien dans la barre latérale
+st.sidebar.markdown(
+    """
+    <div class="sidebar-logo-container">
+        <a href="https://www.visipilot.com" target="_blank">
+            <img src="https://raw.githubusercontent.com/M00N69/RAPPELCONSO/main/logo%2004%20copie.jpg" alt="Visipilot Logo" class="sidebar-logo" style="width: 250px; height: auto;">
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("Assistant Sécurité Emballages Alimentaires")
 
 # Initial Contextual Information
