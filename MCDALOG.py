@@ -239,7 +239,7 @@ elif choice == "Tests et Exigences":
     tests = []
     requirements = []
 
-  # --- Logigramme 2: Tests et Exigences ---
+ # --- Logigramme 2: Tests et Exigences ---
 elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
@@ -327,50 +327,47 @@ elif choice == "Tests et Exigences":
         "Objets en étain", "Pellicules de cellulose régénérée", "Silicones", 
         "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"
     ]:
-        if answers[0] == "Oui":  # Contact direct
-            if answers[1] == "Oui":  # Traitement thermique
+        # Vérification du contact direct
+        if len(answers) > 0 and answers[0] == "Oui":  # Contact direct
+            # Vérification du traitement thermique
+            if len(answers) > 1 and answers[1] == "Oui":  # Traitement thermique
                 tests.extend(["Migration globale", "Migration spécifique"])
                 requirements.extend(["Limite de migration globale (10 mg/dm²)", "Limite de migration spécifique pour les substances concernées"])
-                
+
                 # Température maximale du traitement thermique
-                if answers[2]:
+                if len(answers) > 2 and answers[2]:
                     try:
                         temperature_max = float(answers[2])
                         if temperature_max > 100:
                             tests.append("Migration spécifique pour les substances sensibles à la chaleur")
                     except ValueError:
                         st.warning("Veuillez entrer une valeur numérique valide pour la température maximale du traitement thermique.")
-                
             else:
                 tests.append("Migration spécifique pour les substances concernées")
-            
+
             # Durée de conservation (DLC ou DLUO)
-            if answers[4]:
+            if len(answers) > 4 and answers[4]:
                 try:
                     conservation_duree = int(answers[4])
                     if conservation_duree > 0:
                         tests.append("Tests organoleptiques")
                 except ValueError:
                     st.warning("Veuillez entrer une valeur numérique valide pour la durée de conservation.")
+
+        if material == "Bois" and len(answers) > 5 and answers[5] == "Oui":  # Traitement du bois
+            requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
         
-        if material == "Bois":
-            if len(answers) > 5 and answers[5] == "Oui":  # Traitement du bois
-                requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
+        if material in ["Métaux et alliages de métaux", "Objets en étain"] and len(answers) > 5 and answers[5] == "Oui":  # Traitement du métal
+            requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
         
-        if material in ["Métaux et alliages de métaux", "Objets en étain"]:
-            if len(answers) > 5 and answers[5] == "Oui":  # Traitement du métal
-                requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
+        if material == "Verre, cristal, vitrocéramique" and len(answers) > 5 and answers[5] == "Oui":  # Décoré ou imprimé
+            requirements.append("Vérifier la conformité des décors et des encres.")
         
-        if material == "Verre, cristal, vitrocéramique":
-            if len(answers) > 5 and answers[5] == "Oui":  # Décoré ou imprimé
-                requirements.append("Vérifier la conformité des décors et des encres.")
-        
-        if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
-            if len(answers) > 6 and answers[6] == "Oui":  # Contact avec des aliments acides
-                requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
+        if material in ["Céramiques", "Verre, cristal, vitrocéramique"] and len(answers) > 6 and answers[6] == "Oui":  # Contact avec des aliments acides
+            requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
     
     elif material == "Papiers ET CARTONS":
-        if answers[0] == "Oui":  # Contact direct
+        if len(answers) > 0 and answers[0] == "Oui":  # Contact direct
             requirements.append("Vérifier la teneur en pentachlorophénol.")
             requirements.append("Vérifier la teneur en polychlorobiphenyls.")
             requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
@@ -404,15 +401,15 @@ elif choice == "Tests et Exigences":
 
     # --- Logigramme 4 Logic ---
     if material == "Aluminium":
-        if answers[0] == "Oui":  # Contact direct
-            if answers[2]:
+        if len(answers) > 0 and answers[0] == "Oui":  # Contact direct
+            if len(answers) > 2 and answers[2]:
                 try:
                     teneur_aluminium = float(answers[2])
                     if teneur_aluminium < 99:  # Teneur en aluminium
                         requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
                 except ValueError:
                     st.warning("Veuillez entrer une valeur numérique valide pour la teneur en aluminium.")
-            if answers[3]:
+            if len(answers) > 3 and answers[3]:
                 try:
                     teneur_impuretes = float(answers[3])
                     if teneur_impuretes > 1:  # Teneur en impuretés
@@ -421,12 +418,12 @@ elif choice == "Tests et Exigences":
                     st.warning("Veuillez entrer une valeur numérique valide pour la teneur en impuretés.")
     
     elif material == "Caoutchoucs":
-        if answers[0] == "Oui":  # Contact direct
+        if len(answers) > 0 and answers[0] == "Oui":  # Contact direct
             requirements.append("Limite de migration des nitrosamines dans la salive = 0,01 mg/kg de matériau")
             requirements.append("Limite de migration des substances N-nitrosables dans la salive = 0,1 mg/kg de matériau")
     
     elif material == "Silicones":
-        if answers[0] == "Oui":  # Contact direct
+        if len(answers) > 0 and answers[0] == "Oui":  # Contact direct
             requirements.append("Matières organiques volatiles libres (≤ 0,5%)")
             requirements.append("Migration globale (LMG= 10 mg/dm³ ou 60 mg/kg d'aliment)")
             requirements.append("Organo-étains (LMS = 0,1 mg/kg)")
@@ -455,7 +452,7 @@ elif choice == "Tests et Exigences":
         requirements.append("Déclaration écrite de conformité")
     
     elif material == "MCDA TRAITÉS PAR RAYONNEMENTS IONISANTS":
-        if answers[2]:
+        if len(answers) > 2 and answers[2]:
             try:
                 dose_traitement = float(answers[2])
                 if dose_traitement < 10:  # Dose de traitement
@@ -545,4 +542,4 @@ elif choice == "Tests et Exigences":
         file_name="results_tests.txt",
         mime="text/plain"
     )
-    
+
