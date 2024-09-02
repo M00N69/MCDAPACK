@@ -239,7 +239,7 @@ elif choice == "Tests et Exigences":
     tests = []
     requirements = []
 
-    # --- Logigramme 2: Tests et Exigences ---
+  # --- Logigramme 2: Tests et Exigences ---
 elif choice == "Tests et Exigences":
     st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
 
@@ -517,4 +517,3 @@ elif choice == "Tests et Exigences":
         file_name="results_tests.txt",
         mime="text/plain"
     )
-
