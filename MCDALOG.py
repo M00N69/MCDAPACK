@@ -239,6 +239,86 @@ elif choice == "Tests et Exigences":
     tests = []
     requirements = []
 
+    # --- Logigramme 2: Tests et Exigences ---
+elif choice == "Tests et Exigences":
+    st.header("Logigramme 2: Tests et Exigences selon le matériau et l'aliment")
+
+    # Material Selection
+    materials = [
+        "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
+        "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", "Grès - Porcelaine",
+        "Matières plastiques", "Métaux blanchis", "Métaux et alliages de métaux", 
+        "Objets en étain", "Papiers ET CARTONS", "Pellicules de cellulose régénérée",
+        "Produits de nettoyage des MCDA", "Silicones", "Verre, cristal, vitrocéramique", 
+        "Objets émaillés et décorés", "Zinc", "Autres"
+    ]
+    material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
+
+    # Food Type Selection
+    food_types = ["Aqueux pH > 4.5", "Acide", "Gras", "Sec", "Autres"]
+    food_type = st.selectbox("Sélectionner le type d'aliment:", food_types)
+
+    # Questions
+    st.subheader("Questions pour identifier les tests et exigences:")
+
+    # Questions based on material and food type
+    questions = []
+    if material in [
+        "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
+        "Bois", "Caoutchoucs", "Céramiques", "Étain", "Fontes", 
+        "Grès - Porcelaine", "Métaux blanchis", "Métaux et alliages de métaux", 
+        "Objets en étain", "Pellicules de cellulose régénérée", "Silicones", 
+        "Verre, cristal, vitrocéramique", "Objets émaillés et décorés", "Zinc"
+    ]:
+        questions.extend([
+            "Le matériau est-il en contact direct avec l'aliment ?",
+            "Le matériau est-il soumis à un traitement thermique ?",
+            "Quelle est la température maximale du traitement thermique (en °C) ?",
+            "Quelle est la durée maximale du traitement thermique (en minutes) ?",
+            "Quelle est la durée de conservation du produit (DLC ou DLUO) (en jours) ?"
+        ])
+        if material in ["Matières plastiques", "Pellicules de cellulose régénérée"]:
+            questions.extend([
+                "Y a-t-il une barrière fonctionnelle ?",
+                "Le matériau est-il composé de plusieurs couches ?",
+                "Le matériau est-il recyclé ?",
+                "Le matériau est-il actif ou intelligent ?"
+            ])
+        if material == "Bois":
+            questions.append("Le matériau est-il traité ?")
+        if material in ["Métaux et alliages de métaux", "Objets en étain", "Aciers étamés - aciers galvanisés cuivre - zinc - plomb - arsenic"]:
+            questions.append("Le matériau est-il traité (ex: étamé, galvanisé, etc.) ?")
+        if material == "Verre, cristal, vitrocéramique":
+            questions.append("Le matériau est-il décoré ou imprimé ?")
+        if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
+            questions.append("Le matériau est-il en contact avec des aliments acides ?")
+    elif material == "Papiers ET CARTONS":
+        questions.extend([
+            "Le matériau est-il en contact direct avec l'aliment ?",
+            "Le matériau est-il composé de fibres recyclées ?",
+            "Le matériau est-il imprimé ?",
+            "Le matériau est-il en contact avec des aliments humides ou gras ?"
+        ])
+    else:
+        questions.extend([
+            "Le matériau est-il en contact direct avec l'aliment ?",
+            "Le matériau est-il composé de plusieurs couches ?"
+        ])
+
+    # Answers
+    answers = []
+    for question in questions:
+        if question.startswith("Quelle est"):
+            answer = st.text_input(question)
+        else:
+            answer = st.radio(question, ("Oui", "Non"))
+        answers.append(answer)
+
+    # Tests and Requirements
+    st.subheader("Tests et Exigences:")
+    tests = []
+    requirements = []
+
     # --- Logigramme 2 Logic ---
     if material in [
         "Aciers", "Aciers inoxydables", "Aluminium", "Alliages d'aluminium", 
@@ -259,61 +339,67 @@ elif choice == "Tests et Exigences":
                     st.warning("Veuillez entrer une valeur numérique pour la température maximale du traitement thermique.")
             else:
                 tests.append("Migration spécifique pour les substances concernées")
-            if answers[4].isdigit():
+            if answers[4] and answers[4].isdigit():
                 if int(answers[4]) > 0:  # Durée de conservation (DLC ou DLUO)
                     tests.append("Tests organoleptiques")
         if material == "Bois":
-            if answers[5] == "Oui":  # Traitement du bois
+            if len(answers) > 5 and answers[5] == "Oui":  # Traitement du bois
                 requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
         if material in ["Métaux et alliages de métaux", "Objets en étain"]:
-            if answers[5] == "Oui":  # Traitement du métal
+            if len(answers) > 5 and answers[5] == "Oui":  # Traitement du métal
                 requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
         if material == "Verre, cristal, vitrocéramique":
-            if answers[5] == "Oui":  # Décoré ou imprimé
+            if len(answers) > 5 and answers[5] == "Oui":  # Décoré ou imprimé
                 requirements.append("Vérifier la conformité des décors et des encres.")
         if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
-            if answers[6] == "Oui":  # Contact avec des aliments acides
+            if len(answers) > 6 and answers[6] == "Oui":  # Contact avec des aliments acides
                 requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
     elif material == "Papiers ET CARTONS":
         if answers[0] == "Oui":  # Contact direct
             requirements.append("Vérifier la teneur en pentachlorophénol.")
             requirements.append("Vérifier la teneur en polychlorobiphenyls.")
             requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
-            if answers[3] == "Oui":  # Contact avec des aliments humides ou gras
+            if len(answers) > 3 and answers[3] == "Oui":  # Contact avec des aliments humides ou gras
                 requirements.append("Vérifier la migration des azurants optiques.")
                 requirements.append("Vérifier la migration des colorants.")
-        if answers[1] == "Oui":  # Composé de fibres recyclées
+        if len(answers) > 1 and answers[1] == "Oui":  # Composé de fibres recyclées
             requirements.append("Vérifier l'origine des fibres recyclées.")
-        if answers[2] == "Oui":  # Imprimé
+        if len(answers) > 2 and answers[2] == "Oui":  # Imprimé
             requirements.append("Vérifier la conformité des encres d'impression.")
 
     # --- Logigramme 3 Logic ---
     if material == "Matières plastiques":
-        if answers[5] == "Oui":  # Barrière fonctionnelle
+        if len(answers) > 5 and answers[5] == "Oui":  # Barrière fonctionnelle
             requirements.append("Vérifier la performance de la barrière fonctionnelle.")
-        if answers[6] == "Oui":  # Plusieurs couches
+        if len(answers) > 6 and answers[6] == "Oui":  # Plusieurs couches
             tests.append("Migration spécifique pour chaque couche.")
-        if answers[7] == "Oui":  # Recyclé
+        if len(answers) > 7 and answers[7] == "Oui":  # Recyclé
             requirements.append("Vérifier la conformité du processus de recyclage (Règlement (CE) n° 282/2008).")
-        if answers[8] == "Oui":  # Actif ou intelligent
+        if len(answers) > 8 and answers[8] == "Oui":  # Actif ou intelligent
             requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques (Règlement (CE) n° 450/2009).")
     elif material == "Pellicules de cellulose régénérée":
-        if answers[5] == "Oui":  # Barrière fonctionnelle
+        if len(answers) > 5 and answers[5] == "Oui":  # Barrière fonctionnelle
             requirements.append("Vérifier la performance de la barrière fonctionnelle.")
-        if answers[6] == "Oui":  # Plusieurs couches
+        if len(answers) > 6 and answers[6] == "Oui":  # Plusieurs couches
             tests.append("Migration spécifique pour chaque couche.")
-        if answers[7] == "Oui":  # Recyclé
+        if len(answers) > 7 and answers[7] == "Oui":  # Recyclé
             requirements.append("Vérifier la conformité du processus de recyclage.")
-        if answers[8] == "Oui":  # Actif ou intelligent
+        if len(answers) > 8 and answers[8] == "Oui":  # Actif ou intelligent
             requirements.append("Vérifier la conformité du matériau actif/intelligent aux règlements spécifiques.")
 
     # --- Logigramme 4 Logic ---
     if material == "Aluminium":
         if answers[0] == "Oui":  # Contact direct
-            if float(answers[2]) < 99:  # Teneur en aluminium
-                requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
-            if float(answers[3]) > 1:  # Teneur en impuretés
-                requirements.append("Vérifier la conformité de la teneur en impuretés (≤1%).")
+            if answers[2] and answers[2].isdigit():
+                if float(answers[2]) < 99:  # Teneur en aluminium
+                    requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
+            else:
+                st.warning("Veuillez entrer une valeur numérique pour la teneur en aluminium.")
+            if answers[3] and answers[3].isdigit():
+                if float(answers[3]) > 1:  # Teneur en impuretés
+                    requirements.append("Vérifier la conformité de la teneur en impuretés (≤1%).")
+            else:
+                st.warning("Veuillez entrer une valeur numérique pour la teneur en impuretés.")
     elif material == "Caoutchoucs":
         if answers[0] == "Oui":  # Contact direct
             requirements.append("Limite de migration des nitrosamines dans la salive = 0,01 mg/kg de matériau")
@@ -344,10 +430,13 @@ elif choice == "Tests et Exigences":
         requirements.append("Limite de migration spécifique du cadmium")
         requirements.append("Déclaration écrite de conformité")
     elif material == "MCDA TRAITÉS PAR RAYONNEMENTS IONISANTS":
-        if float(answers[2]) < 10:  # Dose de traitement
-            requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
+        if answers[2] and answers[2].isdigit():
+            if float(answers[2]) < 10:  # Dose de traitement
+                requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
+            else:
+                requirements.append("Dossier de demande d'autorisation de traitement pour doses supérieures à 10 kGy.")
         else:
-            requirements.append("Dossier de demande d'autorisation de traitement pour doses supérieures à 10 kGy.")
+            st.warning("Veuillez entrer une valeur numérique pour la dose de traitement.")
     elif material == "Produits de nettoyage des MCDA":
         requirements.append("Dossier de demande d'autorisation de substance.")
         requirements.append("Restriction d'emploi concernant les produits de rinçage.")
@@ -403,7 +492,7 @@ elif choice == "Tests et Exigences":
         requirements.append("Vérifier la teneur en pentachlorophénol.")
         requirements.append("Vérifier la teneur en polychlorobiphenyls.")
         requirements.append("Vérifier la migration du formol, glyoxal, fluor.")
-        if answers[3] == "Oui":  # Contact avec des aliments humides ou gras
+        if len(answers) > 3 and answers[3] == "Oui":  # Contact avec des aliments humides ou gras
             requirements.append("Vérifier la migration des azurants optiques.")
             requirements.append("Vérifier la migration des colorants.")
     elif material == "ENCRES":
