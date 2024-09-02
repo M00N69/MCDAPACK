@@ -331,29 +331,44 @@ elif choice == "Tests et Exigences":
             if answers[1] == "Oui":  # Traitement thermique
                 tests.extend(["Migration globale", "Migration spécifique"])
                 requirements.extend(["Limite de migration globale (10 mg/dm²)", "Limite de migration spécifique pour les substances concernées"])
-                # --- Error Handling for Temperature Input ---
-                if answers[2] and answers[2].isdigit():  # Check if input is not empty and is a number
-                    if int(answers[2]) > 100:  # Température maximale du traitement thermique
-                        tests.append("Migration spécifique pour les substances sensibles à la chaleur")
-                else:
-                    st.warning("Veuillez entrer une valeur numérique pour la température maximale du traitement thermique.")
+                
+                # Température maximale du traitement thermique
+                if answers[2]:
+                    try:
+                        temperature_max = float(answers[2])
+                        if temperature_max > 100:
+                            tests.append("Migration spécifique pour les substances sensibles à la chaleur")
+                    except ValueError:
+                        st.warning("Veuillez entrer une valeur numérique valide pour la température maximale du traitement thermique.")
+                
             else:
                 tests.append("Migration spécifique pour les substances concernées")
-            if answers[4] and answers[4].isdigit():
-                if int(answers[4]) > 0:  # Durée de conservation (DLC ou DLUO)
-                    tests.append("Tests organoleptiques")
+            
+            # Durée de conservation (DLC ou DLUO)
+            if answers[4]:
+                try:
+                    conservation_duree = int(answers[4])
+                    if conservation_duree > 0:
+                        tests.append("Tests organoleptiques")
+                except ValueError:
+                    st.warning("Veuillez entrer une valeur numérique valide pour la durée de conservation.")
+        
         if material == "Bois":
             if len(answers) > 5 and answers[5] == "Oui":  # Traitement du bois
                 requirements.append("Vérifier la conformité du traitement du bois (ex: pentachlorophénol).")
+        
         if material in ["Métaux et alliages de métaux", "Objets en étain"]:
             if len(answers) > 5 and answers[5] == "Oui":  # Traitement du métal
                 requirements.append("Vérifier la conformité du traitement du métal (ex: étamé, galvanisé).")
+        
         if material == "Verre, cristal, vitrocéramique":
             if len(answers) > 5 and answers[5] == "Oui":  # Décoré ou imprimé
                 requirements.append("Vérifier la conformité des décors et des encres.")
+        
         if material in ["Céramiques", "Verre, cristal, vitrocéramique"]:
             if len(answers) > 6 and answers[6] == "Oui":  # Contact avec des aliments acides
                 requirements.append("Vérifier la conformité aux limites de migration spécifique pour le plomb et le cadmium (céramiques) ou le plomb (verre).")
+    
     elif material == "Papiers ET CARTONS":
         if answers[0] == "Oui":  # Contact direct
             requirements.append("Vérifier la teneur en pentachlorophénol.")
@@ -390,30 +405,38 @@ elif choice == "Tests et Exigences":
     # --- Logigramme 4 Logic ---
     if material == "Aluminium":
         if answers[0] == "Oui":  # Contact direct
-            if answers[2] and answers[2].isdigit():
-                if float(answers[2]) < 99:  # Teneur en aluminium
-                    requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
-            else:
-                st.warning("Veuillez entrer une valeur numérique pour la teneur en aluminium.")
-            if answers[3] and answers[3].isdigit():
-                if float(answers[3]) > 1:  # Teneur en impuretés
-                    requirements.append("Vérifier la conformité de la teneur en impuretés (≤1%).")
-            else:
-                st.warning("Veuillez entrer une valeur numérique pour la teneur en impuretés.")
+            if answers[2]:
+                try:
+                    teneur_aluminium = float(answers[2])
+                    if teneur_aluminium < 99:  # Teneur en aluminium
+                        requirements.append("Vérifier la conformité de la teneur en aluminium (>99%).")
+                except ValueError:
+                    st.warning("Veuillez entrer une valeur numérique valide pour la teneur en aluminium.")
+            if answers[3]:
+                try:
+                    teneur_impuretes = float(answers[3])
+                    if teneur_impuretes > 1:  # Teneur en impuretés
+                        requirements.append("Vérifier la conformité de la teneur en impuretés (≤1%).")
+                except ValueError:
+                    st.warning("Veuillez entrer une valeur numérique valide pour la teneur en impuretés.")
+    
     elif material == "Caoutchoucs":
         if answers[0] == "Oui":  # Contact direct
             requirements.append("Limite de migration des nitrosamines dans la salive = 0,01 mg/kg de matériau")
             requirements.append("Limite de migration des substances N-nitrosables dans la salive = 0,1 mg/kg de matériau")
+    
     elif material == "Silicones":
         if answers[0] == "Oui":  # Contact direct
             requirements.append("Matières organiques volatiles libres (≤ 0,5%)")
             requirements.append("Migration globale (LMG= 10 mg/dm³ ou 60 mg/kg d'aliment)")
             requirements.append("Organo-étains (LMS = 0,1 mg/kg)")
             requirements.append("Peroxydes")
+    
     elif material == "DÉRIVÉS ÉPOXYDIQUES DES VERNIS":
         requirements.append("BFDGE et NOGE non autorisés")
         requirements.append("LMS des dérivés H₂O du Badge = 9 mg/kg")
         requirements.append("LMS des dérivés du HCI du Badge = 1 mg/kg")
+    
     elif material == "Pellicules de cellulose régénérée":
         requirements.append("Listes positives (monomères et additifs)")
         requirements.append("Matières organiques volatiles libres (≤ 0,5 %)")
@@ -425,18 +448,23 @@ elif choice == "Tests et Exigences":
         requirements.append("Monomères avec LMS")
         requirements.append("Additifs avec LMS")
         requirements.append("Peroxydes")
+    
     elif material == "Céramiques":
         requirements.append("Limite de migration spécifique du plomb")
         requirements.append("Limite de migration spécifique du cadmium")
         requirements.append("Déclaration écrite de conformité")
+    
     elif material == "MCDA TRAITÉS PAR RAYONNEMENTS IONISANTS":
-        if answers[2] and answers[2].isdigit():
-            if float(answers[2]) < 10:  # Dose de traitement
-                requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
-            else:
-                requirements.append("Dossier de demande d'autorisation de traitement pour doses supérieures à 10 kGy.")
-        else:
-            st.warning("Veuillez entrer une valeur numérique pour la dose de traitement.")
+        if answers[2]:
+            try:
+                dose_traitement = float(answers[2])
+                if dose_traitement < 10:  # Dose de traitement
+                    requirements.append("Dossier de demande d'autorisation de traitement pour doses inférieures à 10 kGy.")
+                else:
+                    requirements.append("Dossier de demande d'autorisation de traitement pour doses supérieures à 10 kGy.")
+            except ValueError:
+                st.warning("Veuillez entrer une valeur numérique valide pour la dose de traitement.")
+    
     elif material == "Produits de nettoyage des MCDA":
         requirements.append("Dossier de demande d'autorisation de substance.")
         requirements.append("Restriction d'emploi concernant les produits de rinçage.")
