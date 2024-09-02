@@ -73,7 +73,7 @@ with st.expander("Contexte de l'Emballage", expanded=True):
 # Menu latéral
 st.sidebar.title("Navigation")
 choice = st.sidebar.radio("Choisir un logigramme:", ("Réglementation et Spécificités", "Tests et Exigences"))
-# Logigramme 1: Réglementation et Spécificités
+# --- Logigramme 1: Réglementation et Spécificités ---
 if choice == "Réglementation et Spécificités":
     st.header("Logigramme 1: Réglementation et Spécificités selon le matériau")
 
@@ -87,9 +87,10 @@ if choice == "Réglementation et Spécificités":
     ]
     material = st.selectbox("Sélectionner le matériau d'emballage:", materials)
 
-    # Affichage des réglementations et spécifications
+    # Affichage des Réglementations et Spécifications
     st.subheader("Réglementations et Spécifications:")
-    
+
+    # Réglementations et spécifications détaillées pour chaque matériau
     if material == "Aciers":
         st.write("## Aciers")
         st.write("### Réglementations:")
@@ -113,7 +114,155 @@ if choice == "Réglementation et Spécificités":
         st.write("### Spécifications:")
         st.write("- Teneur en aluminium (>99%)")
         st.write("- Teneur en impuretés (≤ 1 %)")
-    # ... (continuer avec les autres matériaux)
+    elif material == "Bois":
+        st.write("## Bois")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Bois")
+        st.write("### Spécifications:")
+        st.write("- Liste des essences de bois autorisées au contact des aliments")
+        st.write("- Teneur en pentachlorophénol")
+    elif material == "Caoutchoucs":
+        st.write("## Caoutchoucs")
+        st.write("### Réglementations:")
+        st.write("- Directive n° 93/11/CE: Caoutchoucs (tétines et sucettes)")
+        st.write("- Arrêté du 9 novembre 1994: Caoutchoucs")
+        st.write("- Arrêté du 9 août 2005: Caoutchoucs")
+        st.write("- Arrêté du 19 décembre 2006: Caoutchoucs")
+        st.write("### Spécifications:")
+        st.write("- Listes positives (monomères et additifs)")
+        st.write("- Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Formaldehyde (LMS = 3 mg/kg)")
+        st.write("- Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("- N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("- Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("- Monomères avec LMS")
+        st.write("- Additifs avec LMS")
+        st.write("- Peroxydes")
+    elif material == "Céramiques":
+        st.write("## Céramiques")
+        st.write("### Réglementations:")
+        st.write("- Directive n° 84/500/CEE: Céramiques")
+        st.write("- Directive n° 2005/31/CE: Céramiques")
+        st.write("- Arrêté du 7 novembre 1985: Céramiques")
+        st.write("- Arrêté du 23 mai 2006: Céramiques")
+        st.write("### Spécifications:")
+        st.write("- Limite de migration spécifique du plomb")
+        st.write("- Limite de migration spécifique du cadmium")
+        st.write("- Déclaration écrite de conformité")
+    elif material == "Étain":
+        st.write("## Étain")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en étain ≥ 97 %")
+        st.write("- Teneur en antimoine et cuivre")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre")
+    elif material == "Fontes":
+        st.write("## Fontes")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés")
+    elif material == "Grès - Porcelaine":
+        st.write("## Grès - Porcelaine")
+        st.write("### Réglementations:")
+        st.write("- Directive n° 84/500/CEE: Céramiques")
+        st.write("- Directive n° 2005/31/CE: Céramiques")
+        st.write("### Spécifications:")
+        st.write("- Limite de migration spécifique du plomb et du cadmium")
+        st.write("- Déclaration écrite de conformité")
+    elif material == "Matières plastiques":
+        st.write("## Matières plastiques")
+        st.write("### Réglementations:")
+        st.write("- Règlement (UE) n° 10/2011: Plastiques")
+        st.write("- Directive 2002/72/CE: Plastiques")
+        st.write("### Spécifications:")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Migration spécifique (en mg/kg d'aliment)")
+        st.write("- Listes positives (monomères et additifs)")
+    elif material == "Métaux blanchis":
+        st.write("## Métaux blanchis")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier : plomb, cadmium")
+    elif material == "Métaux et alliages de métaux":
+        st.write("## Métaux et alliages de métaux")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- LLS des éléments ajoutés")
+    elif material == "Objets en étain":
+        st.write("## Objets en étain")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en étain ≥ 97 %")
+        st.write("- Teneur en antimoine et cuivre")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés, en particulier : étain, plomb, cadmium, arsenic, antimoine, cuivre")
+    elif material == "Papiers":
+        st.write("## Papiers")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: Papiers")
+        st.write("### Spécifications:")
+        st.write("- Teneur en pentachlorophénol")
+        st.write("- Teneur en polychlorobiphényles")
+        st.write("- Migration du formol, glyoxal, fluor")
+    elif material == "Pellicules de cellulose régénérée":
+        st.write("## Pellicules de cellulose régénérée")
+        st.write("### Réglementations:")
+        st.write("- Directive 2007/42/CE: Pellicules de cellulose régénérée")
+        st.write("### Spécifications:")
+        st.write("- Matières organiques volatiles libres (≤ 0,5 %)")
+        st.write("- Migration globale (LMG = 10 mg/dm² ou 60 mg/kg d'aliment)")
+        st.write("- Formaldehyde (LMS = 3 mg/kg)")
+        st.write("- Amines aromatiques primaires et secondaires (LMS = 1 mg/kg)")
+        st.write("- N-nitrosamines (LMS = 1 µg/dm³)")
+        st.write("- Substances N-nitrosables (LMS = 10 µg/dm³)")
+        st.write("- Listes positives (monomères et additifs)")
+    elif material == "Produits de nettoyage des MCDA":
+        st.write("## Produits de nettoyage des MCDA")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 19 décembre 2013: Produits de nettoyage des matériaux en contact avec les denrées alimentaires")
+        st.write("### Spécifications:")
+        st.write("- Dossier de demande d'autorisation de substance")
+        st.write("- Restriction d'emploi concernant les produits de rinçage")
+        st.write("- Liste positive")
+    elif material == "Silicones":
+        st.write("## Silicones")
+        st.write("### Réglementations:")
+        st.write("- Directive 2002/72/CE: Silicones")
+        st.write("### Spécifications:")
+        st.write("- Matières organiques volatiles libres (≤ 0,5%)")
+        st.write("- Migration globale (LMG= 10 mg/dm³ ou 60 mg/kg d'aliment)")
+        st.write("- Organo-étains (LMS = 0,1 mg/kg)")
+        st.write("- Peroxydes")
+    elif material == "Verre":
+        st.write("## Verre")
+        st.write("### Réglementations:")
+        st.write("- Directive 84/500/CEE: Verre")
+        st.write("### Spécifications:")
+        st.write("- LMS pour le plomb et cadmium")
+    elif material == "Zinc":
+        st.write("## Zinc")
+        st.write("### Réglementations:")
+        st.write("- Arrêté du 15 novembre 1945: MÉTAUX ET ALLIAGES")
+        st.write("### Spécifications:")
+        st.write("- Teneur en zinc ≥ 99 %")
+        st.write("- Teneur en plomb, cadmium, arsenic")
+        st.write("- LLS des éléments ajoutés")
+    elif material == "Autres":
+        st.write("## Autres Matériaux")
+        st.write("### Réglementations:")
+        st.write("Les réglementations spécifiques seront appliquées en fonction du type de matériau non répertorié.")
+        st.write("### Spécifications:")
+        st.write("Les spécifications seront définies en fonction du matériau sélectionné.")
+
 
     # Exportation des résultats
     st.download_button(
