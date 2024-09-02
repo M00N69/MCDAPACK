@@ -60,7 +60,7 @@ st.sidebar.markdown(
     """
     <div class="sidebar-logo-container">
         <a href="https://www.visipilot.com" target="_blank">
-            <img src="https://raw.githubusercontent.com/M00N69/RAPPELCONSO/main/logo%2004%20copie.jpg" alt="Visipilot Logo" class="sidebar-logo">
+            <img src="https://raw.githubusercontent.com/M00N69/RAPPELCONSO/main/logo%2004%20copie.jpg" alt="Visipilot Logo" class="sidebar-logo" style="width: 250px; height: auto;">
         </a>
     </div>
     """,
