@@ -70,7 +70,7 @@ st.sidebar.markdown(
 st.title("Assistant Sécurité Emballages Alimentaires")
 
 # Expander pour expliquer le fonctionnement de l'application
-with st.expander("📄 Comment utiliser cette application", expanded=False):
+with st.expander("**📄 Comment utiliser cette application**", expanded=False):
     st.write("""
     **Bienvenue sur l'Assistant Sécurité Emballages Alimentaires !**
 
